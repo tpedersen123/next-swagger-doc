@@ -6,6 +6,7 @@ describe('withSwagger', () => {
       createSwaggerSpec({
         title: 'NextJS Swagger',
         version: '0.1.0',
+        description: 'Amazing API'
       })
     ).toMatchSnapshot();
   });

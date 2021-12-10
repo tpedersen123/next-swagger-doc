@@ -8,6 +8,7 @@ type SwaggerOptions = {
   apiFolder?: string;
   title: string;
   version: string;
+  description: string;
 };
 
 /**
@@ -16,6 +17,7 @@ type SwaggerOptions = {
  * @param options.apiFolder NextJS API folder {pages/api}
  * @param options.title Title
  * @param options.version Version
+ * @param options.description Description
  * @returns Swagger JSON Spec
  *
  * @example
@@ -24,6 +26,7 @@ type SwaggerOptions = {
  *  apiFolder:  'pages/api',
  *  title: 'Demo Api',
  *  version: '1.0',
+ *  description: 'My amazing APi',
  * })
  */
 export function createSwaggerSpec({
@@ -31,6 +34,7 @@ export function createSwaggerSpec({
   apiFolder = 'pages/api',
   title,
   version,
+  description
 }: SwaggerOptions) {
   const apiDirectory = join(process.cwd(), apiFolder);
   const buildApiDirectory = join(process.cwd(), '.next/server', apiFolder);
@@ -41,6 +45,7 @@ export function createSwaggerSpec({
       info: {
         title,
         version,
+        description
       },
     },
     apis: [
@@ -60,6 +65,7 @@ export function createSwaggerSpec({
  * @param options.apiFolder NextJS API folder {pages/api}
  * @param options.title Title
  * @param options.version Version
+ * @param options.description Description
  * @returns
  *
  * @example
@@ -68,6 +74,7 @@ export function createSwaggerSpec({
  *  apiFolder:  'pages/api',
  *  title: 'Demo Api',
  *  version: '1.0',
+ *  description: 'My amazing API'
  * })
  */
 export function withSwagger({
@@ -75,6 +82,7 @@ export function withSwagger({
   apiFolder = 'pages/api',
   title,
   version,
+  description
 }: SwaggerOptions) {
   return () => {
     return (_req: NextApiRequest, res: NextApiResponse) => {
@@ -84,6 +92,7 @@ export function withSwagger({
           apiFolder,
           title,
           version,
+          description
         });
         res.status(200).send(swaggerSpec);
       } catch (error) {
